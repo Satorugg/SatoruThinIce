@@ -22,3 +22,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+shadowJar {
+    // Configuring the shadow plugin to relocate the MySQL driver
+    relocate 'com.mysql.cj', 'io.github.satorugg.satoruspleef.mysql.cj'
+}
