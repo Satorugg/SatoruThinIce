@@ -8,6 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 public class SetArenaCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -15,9 +17,9 @@ public class SetArenaCommand implements CommandExecutor {
             commandSender.sendMessage("Must be a player in game to use this command!");
             return false;
         }
+        System.out.println("running");
 
         Player player = (Player) commandSender;
-
         ItemStack setArenaAxe = new ItemStack(Material.WOODEN_AXE);
         ItemMeta itemMeta = setArenaAxe.getItemMeta();
         assert itemMeta != null;
@@ -25,6 +27,6 @@ public class SetArenaCommand implements CommandExecutor {
         itemMeta.setUnbreakable(true);
         setArenaAxe.setItemMeta(itemMeta);
         player.getInventory().addItem(setArenaAxe);
-        return false;
+        return true;
     }
 }

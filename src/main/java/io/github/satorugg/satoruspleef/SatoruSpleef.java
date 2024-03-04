@@ -2,24 +2,19 @@ package io.github.satorugg.satoruspleef;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import io.github.satorugg.satoruspleef.commands.SetArenaCommand;
+import io.github.satorugg.satoruspleef.commands.SSpleefCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.sql.DataSource;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class SatoruSpleef extends JavaPlugin {
 
@@ -38,7 +33,7 @@ public class SatoruSpleef extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.getCommand("set-arena").setExecutor(new SetArenaCommand());
+        getCommand("sspleef").setExecutor(new SSpleefCommand());
     }
 
     @Override
