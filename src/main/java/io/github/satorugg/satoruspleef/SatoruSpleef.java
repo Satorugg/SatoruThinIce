@@ -76,8 +76,6 @@ public class SatoruSpleef extends JavaPlugin {
         try (InputStream in = getClassLoader().getResourceAsStream("dbsetup.sql")) {
             // Java 9+ way
             setup = new String(in.readAllBytes());
-            // Legacy way
-            setup = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             getLogger().log(Level.SEVERE, "Could not read db setup file.", e);
             throw e;
@@ -88,6 +86,7 @@ public class SatoruSpleef extends JavaPlugin {
         for (String query : queries) {
             // If you use the legacy way you have to check for empty queries here.
             if (query.isBlank()) continue;
+            System.out.println("executing " + query);
             try (Connection conn = dataSource.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.execute();

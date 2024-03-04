@@ -1,4 +1,8 @@
-CREATE TABLE IF NOT EXISTS something
+CREATE TABLE IF NOT EXISTS satoruspleef_database.Arenas
 (
-    [...]
+    ArenaID INT NOT NULL AUTO_INCREMENT,
+    x DOUBLE NOT NULL,
+    y DOUBLE NOT NULL,
+    z DOUBLE NOT NULL,
+    PRIMARY KEY(ArenaID)
 );
