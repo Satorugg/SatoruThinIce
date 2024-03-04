@@ -1,3 +1,4 @@
+api-version: 1.20
 main: io.github.satorugg.satoruspleef.SatoruSpleef
 name: SatoruSpleef
 version: '1.0.0'
@@ -15,6 +16,10 @@ commands:
     permission: test.foo
     permission-message: You do not have permission!
     usage: /<command> [test|stop]
+  set-arena:
+    description: Your description
+    usage: /<command>
+    permission: satoruspleef.set-arena
 permissions:
   test.foo:
     description: Allows foo command
@@ -24,3 +29,6 @@ permissions:
     default: op
     children:
       test.foo: true
+  satoruspleef.set-arena:
+    description: Set arena for spleef
+    default: op

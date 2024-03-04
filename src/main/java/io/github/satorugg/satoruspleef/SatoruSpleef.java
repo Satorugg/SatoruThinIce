@@ -2,6 +2,7 @@ package io.github.satorugg.satoruspleef;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import io.github.satorugg.satoruspleef.commands.SetArenaCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,6 +38,7 @@ public class SatoruSpleef extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.getCommand("set-arena").setExecutor(new SetArenaCommand());
     }
 
     @Override
