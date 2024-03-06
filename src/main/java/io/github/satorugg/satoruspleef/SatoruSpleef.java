@@ -3,6 +3,7 @@ package io.github.satorugg.satoruspleef;
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import io.github.satorugg.satoruspleef.commands.SSpleefCommand;
+import io.github.satorugg.satoruspleef.listeners.admin.SetArenaListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -34,6 +35,8 @@ public class SatoruSpleef extends JavaPlugin {
             throw new RuntimeException(e);
         }
         getCommand("sspleef").setExecutor(new SSpleefCommand());
+
+        getServer().getPluginManager().registerEvents(new SetArenaListener(), this);
     }
 
     @Override

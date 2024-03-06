@@ -22,8 +22,8 @@ public class SSpleefCommand implements CommandExecutor {
         }
 
         if (strings.length == 0) {
-            commandSender.sendMessage("Usage: /sspleef <subcommand>");
-            return false;
+            commandSender.sendMessage("Usage: /sspleef <set-arena | >");
+            return true;
         }
 
         String subcommand = strings[0];

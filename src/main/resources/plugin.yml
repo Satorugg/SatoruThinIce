@@ -10,5 +10,5 @@ prefix: TestingSatoruSpleef
 commands:
   sspleef:
     description: Main command for Spleef plugin
-    usage: /sspleef <subcommand>
+    usage: /sspleef <set-arena | >
     permission: sspleef.command

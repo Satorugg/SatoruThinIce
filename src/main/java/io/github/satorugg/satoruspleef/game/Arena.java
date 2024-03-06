@@ -13,15 +13,21 @@ public class Arena {
     private List<Block> arenaBlocks = new ArrayList<>();
     private Block startingBlock;
     private Block endingBlock;
+    private World world;
 
     public Arena(Block startingBlock, Block endingBlock, World world) {
-        for (int i = startingBlock.getX(); i < endingBlock.getX(); i++) {
-            for (int j = startingBlock.getY(); j < endingBlock.getY(); j++) {
-                for (int k = startingBlock.getZ(); k < endingBlock.getZ(); k++) {
-                    arenaBlocks.add(world.getBlockAt(i, j, k));
-                }
-            }
-        }
+        this.startingBlock = startingBlock;
+        this.endingBlock = endingBlock;
+        this.world = world;
+        System.out.println("Arena has" + startingBlock);
+        System.out.println("Arena has " + endingBlock);
+//        for (int i = startingBlock.getX(); i < endingBlock.getX(); i++) {
+//            for (int j = startingBlock.getY(); j < endingBlock.getY(); j++) {
+//                for (int k = startingBlock.getZ(); k < endingBlock.getZ(); k++) {
+//                    arenaBlocks.add(world.getBlockAt(i, j, k));
+//                }
+//            }
+//        }
     }
 
     public List<Block> getArenaBlocks() {
