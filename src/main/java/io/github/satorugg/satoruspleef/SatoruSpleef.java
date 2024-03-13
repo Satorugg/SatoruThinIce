@@ -20,23 +20,22 @@ import java.util.logging.Level;
 public class SatoruSpleef extends JavaPlugin {
 
     private DataSource dataSource;
+    private Database db;
 
     @Override
     public void onEnable() {
         Bukkit.getLogger().info(ChatColor.GREEN + "Enabled " + this.getName());
         FileConfiguration config = getConfig();
-        Database db = new Database(config);
+        db = new Database(config);
         try {
             dataSource = initMySQLDataSource(db);
             initDb();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
         getCommand("sspleef").setExecutor(new SSpleefCommand());
 
-        getServer().getPluginManager().registerEvents(new SetArenaListener(), this);
+        getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
     }
 
     @Override
@@ -59,9 +58,20 @@ public class SatoruSpleef extends JavaPlugin {
         // set credentials
         dataSource.setServerName(db.getHost());
         dataSource.setPortNumber(db.getPort());
-        dataSource.setDatabaseName(db.getDatabaseName());
         dataSource.setUser(db.getUser());
         dataSource.setPassword(db.getPassword());
+
+        System.out.println("running initMYSQLDATASOURCE");
+
+        try (Connection connection = dataSource.getConnection()) {
+            String dbName = db.getDatabaseName();
+            String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS " + dbName;
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createDatabaseQuery)) {
+                preparedStatement.executeUpdate();
+                System.out.println("Database created successfully.");
+            }
+        }
 
         // Test connection
         testDataSource(dataSource);
@@ -92,6 +102,7 @@ public class SatoruSpleef extends JavaPlugin {
                 stmt.execute();
             }
         }
+        db.setDataSource(dataSource);
         getLogger().info("§2Database setup complete.");
     }
 }

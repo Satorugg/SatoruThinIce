@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,11 @@ import java.util.UUID;
 
 public class SetArenaListener implements Listener {
     HashMap<UUID, List<Block>> opArenaPointsMap = new HashMap<>();
+    Plugin plugin;
+
+    public SetArenaListener(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public boolean setArena(BlockBreakEvent e) {
@@ -33,9 +39,7 @@ public class SetArenaListener implements Listener {
             System.out.println(opArenaPointsMap.get(opPlayer).get(0));
             Block starting = opArenaPointsMap.get(opPlayer).get(0);
             Block ending = opArenaPointsMap.get(opPlayer).get(1);
-            Arena arena = new Arena(starting, ending, e.getPlayer().getWorld());
-            System.out.println(arena.getArenaBlocks().get(0));
-            System.out.println(arena.getArenaBlocks().get(arena.getArenaBlocks().size() - 1));
+            Arena arena = new Arena(starting, ending, e.getPlayer().getWorld(), plugin);
             opArenaPointsMap.remove(opPlayer);
             return true;
         }

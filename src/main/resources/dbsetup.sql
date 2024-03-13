@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS satoruspleef_database.Arenas
     x DOUBLE NOT NULL,
     y DOUBLE NOT NULL,
     z DOUBLE NOT NULL,
+    block_material VARCHAR(255) NOT NULL,
     PRIMARY KEY(ArenaID)
 );

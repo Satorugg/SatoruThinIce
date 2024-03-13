@@ -2,6 +2,8 @@ package io.github.satorugg.satoruspleef;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
+import javax.sql.DataSource;
+
 public class Database {
 
     private String host;
@@ -9,6 +11,7 @@ public class Database {
     private String databaseName;
     private String user;
     private String password;
+    private DataSource dataSource;
 
     public Database(FileConfiguration config) {
         this.host = config.getString("database.host");
@@ -36,5 +39,10 @@ public class Database {
 
     public String getPassword() {
         return password;
+    }
+    public DataSource getDataSource() { return dataSource; }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }
