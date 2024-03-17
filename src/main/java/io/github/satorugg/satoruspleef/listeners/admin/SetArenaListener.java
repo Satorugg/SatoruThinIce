@@ -1,6 +1,7 @@
 package io.github.satorugg.satoruspleef.listeners.admin;
 
 import io.github.satorugg.satoruspleef.game.Arena;
+import io.github.satorugg.satoruspleef.game.ArenaManager;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class SetArenaListener implements Listener {
     HashMap<UUID, List<Block>> opArenaPointsMap = new HashMap<>();
     Plugin plugin;
+    ArenaManager manager;
 
     public SetArenaListener(Plugin plugin) {
         this.plugin = plugin;

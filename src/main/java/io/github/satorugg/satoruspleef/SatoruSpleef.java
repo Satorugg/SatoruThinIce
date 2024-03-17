@@ -3,11 +3,13 @@ package io.github.satorugg.satoruspleef;
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import io.github.satorugg.satoruspleef.commands.SSpleefCommand;
+import io.github.satorugg.satoruspleef.game.ArenaManager;
 import io.github.satorugg.satoruspleef.listeners.admin.SetArenaListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.A;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -21,11 +23,13 @@ public class SatoruSpleef extends JavaPlugin {
 
     private DataSource dataSource;
     private Database db;
+    private ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
         Bukkit.getLogger().info(ChatColor.GREEN + "Enabled " + this.getName());
         FileConfiguration config = getConfig();
+        this.arenaManager = new ArenaManager();
         db = new Database(config);
         try {
             dataSource = initMySQLDataSource(db);
@@ -104,5 +108,9 @@ public class SatoruSpleef extends JavaPlugin {
         }
         db.setDataSource(dataSource);
         getLogger().info("§2Database setup complete.");
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
     }
 }
