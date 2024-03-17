@@ -1,5 +1,6 @@
 package io.github.satorugg.satoruspleef.listeners.admin;
 
+import io.github.satorugg.satoruspleef.SatoruSpleef;
 import io.github.satorugg.satoruspleef.game.Arena;
 import io.github.satorugg.satoruspleef.game.ArenaManager;
 import org.bukkit.block.Block;
@@ -16,10 +17,10 @@ import java.util.UUID;
 
 public class SetArenaListener implements Listener {
     HashMap<UUID, List<Block>> opArenaPointsMap = new HashMap<>();
-    Plugin plugin;
+    SatoruSpleef plugin;
     ArenaManager manager;
 
-    public SetArenaListener(Plugin plugin) {
+    public SetArenaListener(SatoruSpleef plugin) {
         this.plugin = plugin;
     }
 
@@ -42,6 +43,7 @@ public class SetArenaListener implements Listener {
             Block starting = opArenaPointsMap.get(opPlayer).get(0);
             Block ending = opArenaPointsMap.get(opPlayer).get(1);
             Arena arena = new Arena(starting, ending, e.getPlayer().getWorld(), plugin);
+            plugin.getArenaManager().addArena(arena);
             opArenaPointsMap.remove(opPlayer);
             return true;
         }

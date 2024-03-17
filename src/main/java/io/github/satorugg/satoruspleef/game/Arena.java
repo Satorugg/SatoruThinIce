@@ -47,14 +47,13 @@ public class Arena {
                         System.out.println("not adding air");
                     } else {
                         Block b = world.getBlockAt(i, j, k);
-                        b.setMetadata("arena-block", new FixedMetadataValue(plugin, "arenaBlock"));
+                        b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));
                         arenaBlocks.add(b);
                     }
                 }
             }
         }
         System.out.println(arenaBlocks.size());
-        System.out.println(arenaBlocks);
     }
 
     public List<Block> getArenaBlocks() {

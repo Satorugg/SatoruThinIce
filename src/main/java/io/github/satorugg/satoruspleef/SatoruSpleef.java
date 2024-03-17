@@ -5,6 +5,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import io.github.satorugg.satoruspleef.commands.SSpleefCommand;
 import io.github.satorugg.satoruspleef.game.ArenaManager;
 import io.github.satorugg.satoruspleef.listeners.admin.SetArenaListener;
+import io.github.satorugg.satoruspleef.listeners.user.SpleefGameListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -40,6 +41,7 @@ public class SatoruSpleef extends JavaPlugin {
         getCommand("sspleef").setExecutor(new SSpleefCommand());
 
         getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
+        getServer().getPluginManager().registerEvents(new SpleefGameListener(), this);
     }
 
     @Override
