@@ -1,5 +1,6 @@
 package io.github.satorugg.satoruthinice.game;
 
+import io.github.satorugg.satoruthinice.SatoruThinIce;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -15,11 +16,13 @@ public class Arena {
     private Block startingBlock;
     private Block endingBlock;
     private World world;
+    private SatoruThinIce plugin;
 
-    public Arena(Block startingBlock, Block endingBlock, World world, Plugin plugin) {
+    public Arena(Block startingBlock, Block endingBlock, World world, SatoruThinIce plugin) {
         this.startingBlock = startingBlock;
         this.endingBlock = endingBlock;
         this.world = world;
+        this.plugin = plugin;
         System.out.println("Arena has" + startingBlock);
         System.out.println("Arena has " + endingBlock);
         int maxX = Math.max(startingBlock.getX(), endingBlock.getX());
@@ -43,6 +46,7 @@ public class Arena {
                         System.out.println("not adding air");
                     } else {
                         Block b = world.getBlockAt(i, j, k);
+                        //plugin.getDataSource().
                         b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));
                         arenaBlocks.add(b);
                     }
