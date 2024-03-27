@@ -114,4 +114,8 @@ public class SatoruThinIce extends JavaPlugin {
     public ArenaManager getArenaManager() {
         return arenaManager;
     }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
 }
