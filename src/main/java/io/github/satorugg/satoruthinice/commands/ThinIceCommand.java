@@ -22,7 +22,7 @@ public class ThinIceCommand implements CommandExecutor {
         }
 
         if (strings.length == 0) {
-            commandSender.sendMessage("Usage: /sspleef <set-arena | >");
+            commandSender.sendMessage("Usage: /sthinice <set-arena | >");
             return true;
         }
 
