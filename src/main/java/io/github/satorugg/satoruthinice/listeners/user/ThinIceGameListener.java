@@ -1,4 +1,4 @@
-package io.github.satorugg.satoruspleef.listeners.user;
+package io.github.satorugg.satoruthinice.listeners.user;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -6,11 +6,8 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.metadata.MetadataValue;
 
-import java.util.List;
-
-public class SpleefGameListener implements Listener {
+public class ThinIceGameListener implements Listener {
 
     @EventHandler
     public void playerStepOnSpleefBlock(PlayerMoveEvent e) {

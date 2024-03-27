@@ -1,16 +1,15 @@
-package io.github.satorugg.satoruspleef;
+package io.github.satorugg.satoruthinice;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import io.github.satorugg.satoruspleef.commands.SSpleefCommand;
-import io.github.satorugg.satoruspleef.game.ArenaManager;
-import io.github.satorugg.satoruspleef.listeners.admin.SetArenaListener;
-import io.github.satorugg.satoruspleef.listeners.user.SpleefGameListener;
+import io.github.satorugg.satoruthinice.commands.ThinIceCommand;
+import io.github.satorugg.satoruthinice.game.ArenaManager;
+import io.github.satorugg.satoruthinice.listeners.admin.SetArenaListener;
+import io.github.satorugg.satoruthinice.listeners.user.ThinIceGameListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.units.qual.A;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
-public class SatoruSpleef extends JavaPlugin {
+public class SatoruThinIce extends JavaPlugin {
 
     private DataSource dataSource;
     private Database db;
@@ -38,10 +37,10 @@ public class SatoruSpleef extends JavaPlugin {
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
-        getCommand("sspleef").setExecutor(new SSpleefCommand());
+        getCommand("sthinice").setExecutor(new ThinIceCommand());
 
         getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
-        getServer().getPluginManager().registerEvents(new SpleefGameListener(), this);
+        getServer().getPluginManager().registerEvents(new ThinIceGameListener(), this);
     }
 
     @Override

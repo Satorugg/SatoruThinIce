@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS satoruspleef_database.Arenas
+CREATE TABLE IF NOT EXISTS sthin_ice_database.Arenas
 (
     ArenaID INT NOT NULL AUTO_INCREMENT,
     x DOUBLE NOT NULL,

@@ -1,6 +1,4 @@
-package io.github.satorugg.satoruspleef.game;
-
-import org.checkerframework.checker.units.qual.A;
+package io.github.satorugg.satoruthinice.game;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package io.github.satorugg.satoruspleef;
+package io.github.satorugg.satoruthinice;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

@@ -1,14 +1,14 @@
 api-version: 1.20
-main: io.github.satorugg.satoruspleef.SatoruSpleef
-name: SatoruSpleef
+main: io.github.satorugg.satoruthinice.SatoruThinIce
+name: SatoruThinIce
 version: '1.0.0'
-description: Spleef for minecraft.
+description: Thin Ice for minecraft.
 load: POSTWORLD
 author: gojo-satoru
 website: github.com/satorugg
-prefix: TestingSatoruSpleef
+prefix: SatoruThinIce
 commands:
-  sspleef:
-    description: Main command for Spleef plugin
-    usage: /sspleef <set-arena | >
-    permission: sspleef.command
+  sthinice:
+    description: Main command for Thin Ice plugin
+    usage: /sthinice <set-arena | >
+    permission: sthinice.command

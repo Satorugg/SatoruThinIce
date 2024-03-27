@@ -1,4 +1,4 @@
-package io.github.satorugg.satoruspleef.commands;
+package io.github.satorugg.satoruthinice.commands;
 
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -7,8 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.Arrays;
 
 public class SetArenaCommand implements CommandExecutor {
     @Override

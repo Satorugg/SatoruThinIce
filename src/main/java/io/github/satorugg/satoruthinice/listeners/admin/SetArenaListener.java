@@ -1,14 +1,12 @@
-package io.github.satorugg.satoruspleef.listeners.admin;
+package io.github.satorugg.satoruthinice.listeners.admin;
 
-import io.github.satorugg.satoruspleef.SatoruSpleef;
-import io.github.satorugg.satoruspleef.game.Arena;
-import io.github.satorugg.satoruspleef.game.ArenaManager;
+import io.github.satorugg.satoruthinice.SatoruThinIce;
+import io.github.satorugg.satoruthinice.game.Arena;
+import io.github.satorugg.satoruthinice.game.ArenaManager;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,10 +15,10 @@ import java.util.UUID;
 
 public class SetArenaListener implements Listener {
     HashMap<UUID, List<Block>> opArenaPointsMap = new HashMap<>();
-    SatoruSpleef plugin;
+    SatoruThinIce plugin;
     ArenaManager manager;
 
-    public SetArenaListener(SatoruSpleef plugin) {
+    public SetArenaListener(SatoruThinIce plugin) {
         this.plugin = plugin;
     }
 

@@ -1,4 +1,4 @@
-package io.github.satorugg.satoruspleef.commands;
+package io.github.satorugg.satoruthinice.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
-public class SSpleefCommand implements CommandExecutor {
+public class ThinIceCommand implements CommandExecutor {
     private final SetArenaCommand setArenaCommand;
 
-    public SSpleefCommand() {
+    public ThinIceCommand() {
         this.setArenaCommand = new SetArenaCommand();
     }
 

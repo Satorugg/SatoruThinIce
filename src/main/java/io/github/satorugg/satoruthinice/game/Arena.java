@@ -1,13 +1,9 @@
-package io.github.satorugg.satoruspleef.game;
+package io.github.satorugg.satoruthinice.game;
 
-import io.github.satorugg.satoruspleef.SatoruSpleef;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
