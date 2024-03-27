@@ -10,15 +10,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class ThinIceGameListener implements Listener {
 
     @EventHandler
-    public void playerStepOnSpleefBlock(PlayerMoveEvent e) {
+    public void playerStepOnThinIceBlock(PlayerMoveEvent e) {
         Location playerLocation = e.getPlayer().getLocation();
         Block b = playerLocation.getBlock().getRelative(BlockFace.DOWN);
-        if (isArenaBlock(b)) {
-            System.out.println("player is on arena block");
-        } else {
-            System.out.println(isArenaBlock(b));
-
-        }
     }
 
     public boolean isArenaBlock(Block b) {

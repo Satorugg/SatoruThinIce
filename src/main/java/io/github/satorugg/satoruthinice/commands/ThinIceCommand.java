@@ -15,22 +15,22 @@ public class ThinIceCommand implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (!(commandSender instanceof Player)) {
             commandSender.sendMessage("Must be a player to execute this message");
             return false;
         }
 
-        if (strings.length == 0) {
+        if (args.length == 0) {
             commandSender.sendMessage("Usage: /sthinice <set-arena | >");
             return true;
         }
 
-        String subcommand = strings[0];
+        String subcommand = args[0];
 
         switch (subcommand.toLowerCase()) {
             case "set-arena":
-                return setArenaCommand.onCommand(commandSender, command, s, Arrays.copyOfRange(strings, 1, strings.length));
+                return setArenaCommand.onCommand(commandSender, command, s, Arrays.copyOfRange(args, 1, args.length));
             default:
                 commandSender.sendMessage("Unknown subcommand!");
                 return false;

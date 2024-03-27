@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +28,15 @@ public class SetArenaListener implements Listener {
         if (!e.getPlayer().isOp()) {
             return false;
         }
+        if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta() == null) {
+            return false;
+        }
+
+        String playerHandItem = e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName();
+        if (!playerHandItem.contains("Arena") && !playerHandItem.contains("Axe")) {
+            return false;
+        }
+        System.out.println(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName());
         e.setCancelled(true);
 
         UUID opPlayer = e.getPlayer().getUniqueId();
