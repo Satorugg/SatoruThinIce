@@ -37,14 +37,9 @@ public class Arena {
         int minZ = Math.min(startingBlock.getZ(), endingBlock.getZ());
         System.out.printf("max z:%d min z:%d", maxZ, minZ);
         for (int i = minX; i <= maxX; i++) {
-            System.out.println("looping up i " + i);
             for (int j = minY; j <= maxY; j++) {
-                System.out.println("looping up j " + j);
                 for (int k = minZ; k <= maxZ; k++) {
-                    System.out.println("looping up k " + k);
-                    if (world.getBlockAt(i, j, k).getType() == Material.AIR) {
-                        System.out.println("not adding air");
-                    } else {
+                    if (world.getBlockAt(i, j, k).getType() != Material.AIR) {
                         Block b = world.getBlockAt(i, j, k);
                         //plugin.getDataSource().
                         b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));

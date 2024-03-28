@@ -9,10 +9,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SetArenaListener implements Listener {
     HashMap<UUID, List<Block>> opArenaPointsMap = new HashMap<>();
@@ -46,12 +51,40 @@ public class SetArenaListener implements Listener {
         }
         opArenaPointsMap.get(opPlayer).add(e.getBlock());
         if (opArenaPointsMap.get(opPlayer).size() >= 2) {
+            // This regex matches any sequence of digits (\d+)
+            Pattern pattern = Pattern.compile("\\d+");
+            Matcher matcher = pattern.matcher(playerHandItem);
+            int arenaID = -1;
+
+            if (matcher.find()) {
+                // matcher.group() will return the first sequence of digits found
+                arenaID = Integer.parseInt(matcher.group());
+            } else {
+                System.out.println("No number found in the input string.");
+            }
             System.out.println("Player list full");
             System.out.println(opArenaPointsMap.get(opPlayer).get(0));
             Block starting = opArenaPointsMap.get(opPlayer).get(0);
             Block ending = opArenaPointsMap.get(opPlayer).get(1);
             Arena arena = new Arena(starting, ending, e.getPlayer().getWorld(), plugin);
             plugin.getArenaManager().addArena(arena);
+
+            System.out.println("SERVERNAME+" + plugin.getDataSource().getServerName());
+            System.out.println("HostName+" + plugin.getDataSource().getDatabaseName());
+
+            try (Connection connection = plugin.getDataSource().getConnection()) {
+                String insertArenaQuery = "INSERT INTO Arenas (ArenaID) VALUES(?)";
+
+                try (PreparedStatement preparedStatement = connection.prepareStatement(insertArenaQuery)) {
+                    preparedStatement.setInt(1, arenaID);
+                    preparedStatement.executeUpdate();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+            System.out.println("exectued arena adding to database");
+            ItemStack i = e.getPlayer().getInventory().getItemInMainHand();
+            e.getPlayer().getInventory().remove(i);
             opArenaPointsMap.remove(opPlayer);
             return true;
         }

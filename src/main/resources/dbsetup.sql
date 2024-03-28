@@ -1,10 +1,10 @@
 -- create a table
-CREATE TABLE IF NOT EXISTS Arenas (
-    ArenaID INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS sthin_ice_database.Arenas (
+    ArenaID INT PRIMARY KEY
 );
 
 -- Creates a table for Blocks within each Arena
-CREATE TABLE IF NOT EXISTS Blocks (
+CREATE TABLE IF NOT EXISTS sthin_ice_database.Blocks (
     BlockID INT AUTO_INCREMENT PRIMARY KEY,
     ArenaID INT,
     x DOUBLE NOT NULL,

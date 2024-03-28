@@ -21,7 +21,7 @@ import java.util.logging.Level;
 
 public class SatoruThinIce extends JavaPlugin {
 
-    private DataSource dataSource;
+    private MysqlConnectionPoolDataSource dataSource;
     private Database db;
     private ArenaManager arenaManager;
 
@@ -58,11 +58,12 @@ public class SatoruThinIce extends JavaPlugin {
         }
     }
 
-    private DataSource initMySQLDataSource(Database db) throws SQLException {
-        MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
+    private MysqlConnectionPoolDataSource initMySQLDataSource(Database db) throws SQLException {
+        dataSource = new MysqlConnectionPoolDataSource();
         // set credentials
         dataSource.setServerName(db.getHost());
         dataSource.setPortNumber(db.getPort());
+        dataSource.setDatabaseName(db.getDatabaseName());
         dataSource.setUser(db.getUser());
         dataSource.setPassword(db.getPassword());
 
@@ -115,7 +116,7 @@ public class SatoruThinIce extends JavaPlugin {
         return arenaManager;
     }
 
-    public DataSource getDataSource() {
+    public MysqlConnectionPoolDataSource getDataSource() {
         return dataSource;
     }
 }
