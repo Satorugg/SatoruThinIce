@@ -37,7 +37,7 @@ public class SatoruThinIce extends JavaPlugin {
         } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
-        getCommand("sthinice").setExecutor(new ThinIceCommand());
+        getCommand("sthinice").setExecutor(new ThinIceCommand(this));
 
         getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
         getServer().getPluginManager().registerEvents(new ThinIceGameListener(), this);

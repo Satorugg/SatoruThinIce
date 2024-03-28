@@ -1,5 +1,6 @@
 package io.github.satorugg.satoruthinice.commands;
 
+import io.github.satorugg.satoruthinice.SatoruThinIce;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,9 +10,11 @@ import java.util.Arrays;
 
 public class ThinIceCommand implements CommandExecutor {
     private final SetArenaCommand setArenaCommand;
+    private SatoruThinIce plugin;
 
-    public ThinIceCommand() {
-        this.setArenaCommand = new SetArenaCommand();
+    public ThinIceCommand(SatoruThinIce plugin) {
+        this.plugin = plugin;
+        this.setArenaCommand = new SetArenaCommand(plugin);
     }
 
     @Override
