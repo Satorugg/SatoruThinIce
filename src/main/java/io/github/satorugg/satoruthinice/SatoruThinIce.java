@@ -63,7 +63,6 @@ public class SatoruThinIce extends JavaPlugin {
         // set credentials
         dataSource.setServerName(db.getHost());
         dataSource.setPortNumber(db.getPort());
-        dataSource.setDatabaseName(db.getDatabaseName());
         dataSource.setUser(db.getUser());
         dataSource.setPassword(db.getPassword());
 
@@ -78,7 +77,7 @@ public class SatoruThinIce extends JavaPlugin {
                 System.out.println("Database created successfully.");
             }
         }
-
+        dataSource.setDatabaseName(db.getDatabaseName());
         // Test connection
         testDataSource(dataSource);
         return dataSource;
