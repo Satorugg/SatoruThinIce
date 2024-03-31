@@ -62,15 +62,6 @@ public class SetArenaListener implements Listener {
             } else {
                 System.out.println("No number found in the input string.");
             }
-            System.out.println("Player list full");
-            System.out.println(opArenaPointsMap.get(opPlayer).get(0));
-            Block starting = opArenaPointsMap.get(opPlayer).get(0);
-            Block ending = opArenaPointsMap.get(opPlayer).get(1);
-            Arena arena = new Arena(starting, ending, e.getPlayer().getWorld(), plugin);
-            plugin.getArenaManager().addArena(arena);
-
-            System.out.println("SERVERNAME+" + plugin.getDataSource().getServerName());
-            System.out.println("HostName+" + plugin.getDataSource().getDatabaseName());
 
             try (Connection connection = plugin.getDataSource().getConnection()) {
                 String insertArenaQuery = "INSERT INTO Arenas (ArenaID) VALUES(?)";
@@ -82,6 +73,15 @@ public class SetArenaListener implements Listener {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
+            System.out.println("Player list full");
+            System.out.println(opArenaPointsMap.get(opPlayer).get(0));
+            Block starting = opArenaPointsMap.get(opPlayer).get(0);
+            Block ending = opArenaPointsMap.get(opPlayer).get(1);
+            Arena arena = new Arena(arenaID, starting, ending, e.getPlayer().getWorld(), plugin);
+            plugin.getArenaManager().addArena(arena);
+
+            System.out.println("SERVERNAME+" + plugin.getDataSource().getServerName());
+            System.out.println("HostName+" + plugin.getDataSource().getDatabaseName());
             System.out.println("exectued arena adding to database");
             ItemStack i = e.getPlayer().getInventory().getItemInMainHand();
             e.getPlayer().getInventory().remove(i);
