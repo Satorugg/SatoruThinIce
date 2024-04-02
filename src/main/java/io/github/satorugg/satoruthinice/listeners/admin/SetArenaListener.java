@@ -73,8 +73,7 @@ public class SetArenaListener implements Listener {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            System.out.println("Player list full");
-            System.out.println(opArenaPointsMap.get(opPlayer).get(0));
+            e.getPlayer().sendMessage("Setting arena, please wait...");
             Block starting = opArenaPointsMap.get(opPlayer).get(0);
             Block ending = opArenaPointsMap.get(opPlayer).get(1);
             Arena arena = new Arena(arenaID, starting, ending, e.getPlayer().getWorld(), plugin);
@@ -86,10 +85,9 @@ public class SetArenaListener implements Listener {
             ItemStack i = e.getPlayer().getInventory().getItemInMainHand();
             e.getPlayer().getInventory().remove(i);
             opArenaPointsMap.remove(opPlayer);
+            e.getPlayer().sendMessage("Arena set!");
             return true;
         }
-        System.out.println("Set arena Listener");
-        System.out.println(opArenaPointsMap.get(opPlayer).size());
         return true;
     }
 }
