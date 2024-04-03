@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,28 +50,35 @@ public class Arena {
                 }
             }
         }
-        try (Connection connection = this.plugin.getDataSource().getConnection()) {
-            String getArenaQuery = "INSERT INTO Blocks (ArenaID, x, y, z, block_material) VALUES (?, ?, ?, ?, ?)";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(getArenaQuery)) {
-                for (int i = 0; i < arenaBlocks.size(); i++) {
-                    int j = 1;
-                    Block b = arenaBlocks.get(i);
-                    preparedStatement.setInt(j, this.arenaID);
-                    j++;
-                    preparedStatement.setInt(j, b.getX());
-                    j++;
-                    preparedStatement.setInt(j, b.getY());
-                    j++;
-                    preparedStatement.setInt(j, b.getZ());
-                    j++;
-                    preparedStatement.setString(j, b.getType().toString());
-                    preparedStatement.executeUpdate();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                // batch execution for arena blocks setting due to large amount of SQL transactions.
+                try (Connection connection = plugin.getDataSource().getConnection()) {
+                    String getArenaQuery = "INSERT INTO Blocks (ArenaID, x, y, z, block_material) VALUES (?, ?, ?, ?, ?)";
+                    try (PreparedStatement preparedStatement = connection.prepareStatement(getArenaQuery)) {
+                        connection.setAutoCommit(false); // Disable auto commit for batch execution
+                        for (Block b : arenaBlocks) {
+                            preparedStatement.setInt(1, arenaID);
+                            preparedStatement.setInt(2, b.getX());
+                            preparedStatement.setInt(3, b.getY());
+                            preparedStatement.setInt(4, b.getZ());
+                            preparedStatement.setString(5, b.getType().toString());
+                            preparedStatement.addBatch(); // add insert operation to batch
+                        }
+                        preparedStatement.executeBatch(); // execute the batch of insert operations
+                        connection.commit(); // commit the transaction
+                    } catch (SQLException ex) {
+                        connection.rollback(); // rollback in case of exception.
+                        throw new RuntimeException(ex);
+                    } finally {
+                        connection.setAutoCommit(true); // restore auto commit mode.
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+        }.runTaskAsynchronously(plugin);
         System.out.println(arenaBlocks.size());
     }
 

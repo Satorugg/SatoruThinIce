@@ -65,7 +65,6 @@ public class SetArenaListener implements Listener {
 
             try (Connection connection = plugin.getDataSource().getConnection()) {
                 String insertArenaQuery = "INSERT INTO Arenas (ArenaID) VALUES(?)";
-
                 try (PreparedStatement preparedStatement = connection.prepareStatement(insertArenaQuery)) {
                     preparedStatement.setInt(1, arenaID);
                     preparedStatement.executeUpdate();
