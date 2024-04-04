@@ -40,7 +40,7 @@ public class SatoruThinIce extends JavaPlugin {
         getCommand("sthinice").setExecutor(new ThinIceCommand(this));
 
         getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
-        getServer().getPluginManager().registerEvents(new ThinIceGameListener(), this);
+        getServer().getPluginManager().registerEvents(new ThinIceGameListener(this), this);
     }
 
     @Override
