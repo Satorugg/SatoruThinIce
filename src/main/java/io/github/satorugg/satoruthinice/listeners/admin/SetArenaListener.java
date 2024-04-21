@@ -7,6 +7,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
@@ -29,17 +30,17 @@ public class SetArenaListener implements Listener {
     }
 
     @EventHandler
-    public boolean setArena(BlockBreakEvent e) {
+    public void setArena(BlockBreakEvent e) {
         if (!e.getPlayer().isOp()) {
-            return false;
+            return;
         }
         if (e.getPlayer().getInventory().getItemInMainHand().getItemMeta() == null) {
-            return false;
+            return;
         }
 
         String playerHandItem = e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName();
         if (!playerHandItem.contains("Arena") && !playerHandItem.contains("Axe")) {
-            return false;
+            return;
         }
         e.setCancelled(true);
 
@@ -80,8 +81,11 @@ public class SetArenaListener implements Listener {
             e.getPlayer().getInventory().remove(i);
             opArenaPointsMap.remove(opPlayer);
             e.getPlayer().sendMessage("Arena set!");
-            return true;
         }
-        return true;
+    }
+
+    @EventHandler
+    public void debug(BlockPlaceEvent e) {
+        System.out.println(e.getBlock().getLocation());
     }
 }

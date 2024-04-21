@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS sthin_ice_database.Blocks (
     y DOUBLE NOT NULL,
     z DOUBLE NOT NULL,
     block_material VARCHAR(255) NOT NULL,
+    world VARCHAR(255) NOT NULL,
     FOREIGN KEY (ArenaID) REFERENCES Arenas(ArenaID)
 );

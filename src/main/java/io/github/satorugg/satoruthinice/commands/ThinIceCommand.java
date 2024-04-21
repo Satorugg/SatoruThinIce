@@ -10,11 +10,13 @@ import java.util.Arrays;
 
 public class ThinIceCommand implements CommandExecutor {
     private final SetArenaCommand setArenaCommand;
+    private final ResetArenaCommand resetArenaCommand;
     private SatoruThinIce plugin;
 
     public ThinIceCommand(SatoruThinIce plugin) {
         this.plugin = plugin;
         this.setArenaCommand = new SetArenaCommand(plugin);
+        this.resetArenaCommand = new ResetArenaCommand(plugin);
     }
 
     @Override
@@ -34,6 +36,8 @@ public class ThinIceCommand implements CommandExecutor {
         switch (subcommand.toLowerCase()) {
             case "set-arena":
                 return setArenaCommand.onCommand(commandSender, command, s, Arrays.copyOfRange(args, 1, args.length));
+            case "reset-arena":
+                return resetArenaCommand.onCommand(commandSender, command, s, Arrays.copyOfRange(args, 1, args.length));
             default:
                 commandSender.sendMessage("Unknown subcommand!");
                 return false;
