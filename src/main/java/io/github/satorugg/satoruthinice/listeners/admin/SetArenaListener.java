@@ -41,12 +41,10 @@ public class SetArenaListener implements Listener {
         if (!playerHandItem.contains("Arena") && !playerHandItem.contains("Axe")) {
             return false;
         }
-        System.out.println(e.getPlayer().getInventory().getItemInMainHand().getItemMeta().getDisplayName());
         e.setCancelled(true);
 
         UUID opPlayer = e.getPlayer().getUniqueId();
         if (!opArenaPointsMap.containsKey(opPlayer)) {
-            System.out.println("Placing player");
             opArenaPointsMap.put(opPlayer, new ArrayList<>());
         }
         opArenaPointsMap.get(opPlayer).add(e.getBlock());
@@ -78,9 +76,6 @@ public class SetArenaListener implements Listener {
             Arena arena = new Arena(arenaID, starting, ending, e.getPlayer().getWorld(), plugin);
             plugin.getArenaManager().addArena(arena);
 
-            System.out.println("SERVERNAME+" + plugin.getDataSource().getServerName());
-            System.out.println("HostName+" + plugin.getDataSource().getDatabaseName());
-            System.out.println("exectued arena adding to database");
             ItemStack i = e.getPlayer().getInventory().getItemInMainHand();
             e.getPlayer().getInventory().remove(i);
             opArenaPointsMap.remove(opPlayer);

@@ -79,7 +79,6 @@ public class Arena {
                 }
             }
         }.runTaskAsynchronously(plugin);
-        System.out.println(arenaBlocks.size());
     }
 
     public List<Block> getArenaBlocks() {

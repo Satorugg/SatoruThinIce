@@ -24,7 +24,6 @@ public class ThinIceGameListener implements Listener {
 
     @EventHandler
     public void playerStepOnThinIceBlock(PlayerMoveEvent e) {
-        System.out.println("player not on arena block");
         Location playerLocation = e.getPlayer().getLocation();
         Block b = playerLocation.getBlock().getRelative(BlockFace.DOWN);
         int blockArenaNum = -1; // add this functionality later, get arena number and dont attach
@@ -33,7 +32,6 @@ public class ThinIceGameListener implements Listener {
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("running on block " + b);
                     e.getPlayer().getWorld().getBlockAt(b.getLocation()).setType(Material.AIR);
                 }
             }, 20L);

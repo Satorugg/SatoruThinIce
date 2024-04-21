@@ -53,7 +53,7 @@ public class SatoruThinIce extends JavaPlugin {
             if (!conn.isValid(1)) {
                 throw new SQLException("Could not establish database connection.");
             } else {
-                System.out.println("CONNECTED TO MYSQL!");
+                System.out.println("CONNECTED TO MYSQL.");
             }
         }
     }
@@ -65,8 +65,6 @@ public class SatoruThinIce extends JavaPlugin {
         dataSource.setPortNumber(db.getPort());
         dataSource.setUser(db.getUser());
         dataSource.setPassword(db.getPassword());
-
-        System.out.println("running initMYSQLDATASOURCE");
 
         try (Connection connection = dataSource.getConnection()) {
             String dbName = db.getDatabaseName();

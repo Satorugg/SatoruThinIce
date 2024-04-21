@@ -28,7 +28,6 @@ public class SetArenaCommand implements CommandExecutor {
             commandSender.sendMessage("Must be a player in game to use this command!");
             return false;
         }
-        System.out.println("running");
         if (args.length == 0) {
             commandSender.sendMessage("Please enter the arena number!");
             return true;
@@ -58,7 +57,6 @@ public class SetArenaCommand implements CommandExecutor {
         ItemMeta itemMeta = setArenaAxe.getItemMeta();
         assert itemMeta != null;
         String axeName = "Arena " + args[0] + " Axe";
-        System.out.println("arg0" + args[0]);
         itemMeta.setDisplayName(axeName);
         itemMeta.setUnbreakable(true);
         setArenaAxe.setItemMeta(itemMeta);
