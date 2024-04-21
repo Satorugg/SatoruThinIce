@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Arena {
 
-    private HashMap<Block, BlockState> arenaBlocks = HashMap<>();
+    private List<Block> arenaBlocks = new ArrayList<>();
     private Block startingBlock;
     private Block endingBlock;
     private World world;
@@ -49,7 +49,7 @@ public class Arena {
                 }
             }
         }
-        populateBlockList();
+        writeBlocksToDB();
     }
 
     public Arena(int arenaID, SatoruThinIce plugin, World world) {
@@ -57,11 +57,11 @@ public class Arena {
         this.plugin = plugin;
         this.world = world;
 
-        populateBlockList();
+        //writeBlocksToDB();
         //resetArena();
     }
 
-    public void populateBlockList() {
+    public void writeBlocksToDB() {
         new BukkitRunnable() {
             @Override
             public void run() {
