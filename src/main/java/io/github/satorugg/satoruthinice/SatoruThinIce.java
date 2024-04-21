@@ -97,12 +97,10 @@ public class SatoruThinIce extends JavaPlugin {
                                 String material = resultSet.getString("block_material");
                                 String world = resultSet.getString("world");
                                 Block b = Bukkit.getWorld(world).getBlockAt(x, y, z);
-                                if (b.getX() == -87 && b.getY() == 88 && b.getZ() == -170) {
-                                    System.out.println("setting " + material);
-                                    System.out.println(Material.getMaterial(material));
+                                if (b.getType() == Material.AIR) {
+                                    System.out.println("ADDING AIR TO LIST");
                                 }
-                                b.getState().setType(Material.getMaterial(material));
-                                arenaManager.getArena(i).addArenaBlock(b);
+                                arenaManager.getArena(i).addArenaBlock(b, Material.getMaterial(material));
                             }
                         }
                     } catch (SQLException ex) {

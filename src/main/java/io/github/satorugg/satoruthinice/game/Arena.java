@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Arena {
 
-    private List<Block> arenaBlocks = new ArrayList<>();
+    private HashMap<Block, Material> arenaBlocks = new HashMap<>();
     private Block startingBlock;
     private Block endingBlock;
     private World world;
@@ -44,7 +44,7 @@ public class Arena {
                     if (this.world.getBlockAt(i, j, k).getType() != Material.AIR) {
                         Block b = this.world.getBlockAt(i, j, k);
                         b.setMetadata("ArenaBlock", new FixedMetadataValue(this.plugin, true));
-                        arenaBlocks.add(b);
+                        arenaBlocks.put(b, b.getType());
                     }
                 }
             }
@@ -70,7 +70,7 @@ public class Arena {
                     String getArenaQuery = "INSERT INTO Blocks (ArenaID, x, y, z, block_material, world) VALUES (?, ?, ?, ?, ?, ?)";
                     try (PreparedStatement preparedStatement = connection.prepareStatement(getArenaQuery)) {
                         connection.setAutoCommit(false); // Disable auto commit for batch execution
-                        for (Block b : arenaBlocks) {
+                        for (Block b : arenaBlocks.keySet()) {
                             preparedStatement.setInt(1, arenaID);
                             preparedStatement.setInt(2, b.getX());
                             preparedStatement.setInt(3, b.getY());
@@ -96,24 +96,20 @@ public class Arena {
 
     public void resetArena() {
         System.out.println("reset arena");
-        for (Block b : arenaBlocks) {
-            b.setType(b.getType());
+        for (Block b : arenaBlocks.keySet()) {
+            b.setType(arenaBlocks.get(b));
             if (b.getType() == Material.AIR) {
                 System.out.println(b.getLocation());
             }
             if (b.getX() == -87 && b.getY() == 88 && b.getZ() == -170) {
                 System.out.println(b.getType());
             }
-            b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));
+            //b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));
         }
     }
 
-    public List<Block> getArenaBlocks() {
-        return arenaBlocks;
-    }
-
-    public void addArenaBlock(Block b) {
-        arenaBlocks.add(b);
+    public void addArenaBlock(Block b, Material type) {
+        arenaBlocks.put(b, type);
         b.setMetadata("ArenaBlock", new FixedMetadataValue(plugin, true));
     }
 }
