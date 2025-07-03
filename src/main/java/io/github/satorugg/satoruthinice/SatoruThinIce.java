@@ -1,42 +1,46 @@
-package io.github.satorugg.satoruspleef;
+package io.github.satorugg.satoruthinice;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 import com.mysql.cj.jdbc.MysqlDataSource;
+import io.github.satorugg.satoruthinice.commands.ThinIceCommand;
+import io.github.satorugg.satoruthinice.game.ArenaManager;
+import io.github.satorugg.satoruthinice.listeners.admin.SetArenaListener;
+import io.github.satorugg.satoruthinice.listeners.user.ThinIceGameListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.sql.DataSource;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
-import java.util.stream.Collectors;
 
-import static org.bukkit.Bukkit.getLogger;
+public class SatoruThinIce extends JavaPlugin {
 
-public class SatoruSpleef extends JavaPlugin {
-
-    private DataSource dataSource;
+    private MysqlConnectionPoolDataSource dataSource;
+    private Database db;
+    private ArenaManager arenaManager;
 
     @Override
     public void onEnable() {
         Bukkit.getLogger().info(ChatColor.GREEN + "Enabled " + this.getName());
         FileConfiguration config = getConfig();
-        Database db = new Database(config);
+        this.arenaManager = new ArenaManager();
+        db = new Database(config);
         try {
             dataSource = initMySQLDataSource(db);
             initDb();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
+        getCommand("sthinice").setExecutor(new ThinIceCommand(this));
+
+        getServer().getPluginManager().registerEvents(new SetArenaListener(this), this);
+        getServer().getPluginManager().registerEvents(new ThinIceGameListener(), this);
     }
 
     @Override
@@ -54,15 +58,26 @@ public class SatoruSpleef extends JavaPlugin {
         }
     }
 
-    private DataSource initMySQLDataSource(Database db) throws SQLException {
-        MysqlDataSource dataSource = new MysqlConnectionPoolDataSource();
+    private MysqlConnectionPoolDataSource initMySQLDataSource(Database db) throws SQLException {
+        dataSource = new MysqlConnectionPoolDataSource();
         // set credentials
         dataSource.setServerName(db.getHost());
         dataSource.setPortNumber(db.getPort());
-        dataSource.setDatabaseName(db.getDatabaseName());
         dataSource.setUser(db.getUser());
         dataSource.setPassword(db.getPassword());
 
+        System.out.println("running initMYSQLDATASOURCE");
+
+        try (Connection connection = dataSource.getConnection()) {
+            String dbName = db.getDatabaseName();
+            String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS " + dbName;
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createDatabaseQuery)) {
+                preparedStatement.executeUpdate();
+                System.out.println("Database created successfully.");
+            }
+        }
+        dataSource.setDatabaseName(db.getDatabaseName());
         // Test connection
         testDataSource(dataSource);
         return dataSource;
@@ -92,6 +107,15 @@ public class SatoruSpleef extends JavaPlugin {
                 stmt.execute();
             }
         }
+        db.setDataSource(dataSource);
         getLogger().info("§2Database setup complete.");
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
+    }
+
+    public MysqlConnectionPoolDataSource getDataSource() {
+        return dataSource;
     }
 }

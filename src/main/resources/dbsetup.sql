@@ -1,8 +1,15 @@
-CREATE TABLE IF NOT EXISTS satoruspleef_database.Arenas
-(
-    ArenaID INT NOT NULL AUTO_INCREMENT,
+-- create a table
+CREATE TABLE IF NOT EXISTS sthin_ice_database.Arenas (
+    ArenaID INT PRIMARY KEY
+);
+
+-- Creates a table for Blocks within each Arena
+CREATE TABLE IF NOT EXISTS sthin_ice_database.Blocks (
+    BlockID INT AUTO_INCREMENT PRIMARY KEY,
+    ArenaID INT,
     x DOUBLE NOT NULL,
     y DOUBLE NOT NULL,
     z DOUBLE NOT NULL,
-    PRIMARY KEY(ArenaID)
+    block_material VARCHAR(255) NOT NULL,
+    FOREIGN KEY (ArenaID) REFERENCES Arenas(ArenaID)
 );
